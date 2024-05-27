@@ -1,12 +1,14 @@
 import { Innertube, YTNodes } from 'youtubei.js'
 const youtube = await Innertube.create()
 
-const videoId = 'lXuk2nRgEC8'
+const videoId = 'om4YiZF-wZw'
 const video = await youtube.getInfo(videoId)
 
 console.log(video)
 
 const livechat = video.getLiveChat()
+const file = Bun.file('output.jsonl')
+const writer = file.writer()
 
 livechat.once('start', (initialData) => {
   console.log('once start', initialData)
@@ -43,9 +45,13 @@ livechat.on('error', (error) => console.info('Live chat error:', error))
 livechat.on('end', () => {
   console.info('This live stream has ended.')
   livechat.stop()
+  writer.end()
 })
 
 livechat.on('chat-update', (chatAction) => {
+  writer.write(JSON.stringify(chatAction, null, 2))
+  writer.write('\n\n')
+
   if (chatAction.is(YTNodes.ReplayChatItemAction)) {
     const actions = chatAction.actions
     actions.forEach((action) => {
