@@ -1,7 +1,7 @@
 import { Innertube, YTNodes } from 'youtubei.js'
 const youtube = await Innertube.create()
 
-const youtubeHandler = '@NicaCh'
+const youtubeHandler = '@xxhacucoxx_Celestial'
 
 const youtubeChannelUrl = `https://www.youtube.com/${youtubeHandler}`
 const url = await youtube.resolveURL(youtubeChannelUrl)
