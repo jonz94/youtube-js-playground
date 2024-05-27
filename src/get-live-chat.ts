@@ -62,6 +62,8 @@ livechat.on('chat-update', (chatAction) => {
         }
       }
     })
+  } else {
+    console.log((chatAction as any)?.item?.message?.text)
   }
 })
 
