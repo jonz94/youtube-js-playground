@@ -1,5 +1,7 @@
-import { Innertube, YTNodes } from 'youtubei.js'
-const youtube = await Innertube.create()
+import { YTNodes } from 'youtubei.js'
+import { createInnertube } from './utils.mts'
+
+const youtube = await createInnertube()
 
 const youtubeHandler = '@Bismuth9'
 
