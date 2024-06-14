@@ -1,11 +1,12 @@
-import { Innertube, YTNodes } from 'youtubei.js/web'
+import { Innertube } from 'youtubei.js/web'
 
 const youtube = await Innertube.create()
 
-const videoId = 'FXMjUq9YqS8'
+const videoId = 'Py1xFk4DNyA'
 const video = await youtube.getInfo(videoId)
 
-console.log(video)
+console.log(JSON.stringify(video, null, 2))
+console.log()
 
 const livechat = video.getLiveChat()
 const now = new Date().toISOString().split('.')[0].replaceAll(':', '-').replace('T', '-')
@@ -19,27 +20,26 @@ livechat.once('start', (initialData) => {
 })
 
 livechat.on('start', (initialData) => {
+  writer.write(JSON.stringify(initialData, null, 2))
+  writer.write('\n\n')
   // console.log('on start', initialData)
-
   /**
    * Initial info is what you see when you first open a a live chat — this is; initial actions (pinned messages, top donations..), account's info and so forth.
    */
-  console.info(`Hey ${initialData.viewer_name || 'Guest'}, welcome to Live Chat!`)
-
-  const pinned_action = initialData.actions.firstOfType(YTNodes.AddBannerToLiveChatCommand)
-
-  if (pinned_action) {
-    if (pinned_action.banner?.contents?.is(YTNodes.LiveChatTextMessage)) {
-      console.info(
-        '\n',
-        'Pinned message:\n',
-        pinned_action.banner.contents.author?.name.toString(),
-        '-',
-        pinned_action?.banner.contents.message.toString(),
-        '\n',
-      )
-    }
-  }
+  // console.info(`Hey ${initialData.viewer_name || 'Guest'}, welcome to Live Chat!`)
+  // const pinned_action = initialData.actions.firstOfType(YTNodes.AddBannerToLiveChatCommand)
+  // if (pinned_action) {
+  //   if (pinned_action.banner?.contents?.is(YTNodes.LiveChatTextMessage)) {
+  //     console.info(
+  //       '\n',
+  //       'Pinned message:\n',
+  //       pinned_action.banner.contents.author?.name.toString(),
+  //       '-',
+  //       pinned_action?.banner.contents.message.toString(),
+  //       '\n',
+  //     )
+  //   }
+  // }
 })
 
 livechat.on('error', (error) => console.info('Live chat error:', error))
