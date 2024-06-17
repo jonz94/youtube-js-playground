@@ -6,7 +6,7 @@
     "fmt": "prettier --write ."
   },
   "dependencies": {
-    "youtubei.js": "^10.0.0"
+    "youtubei.js": "./youtubei.js-10.0.0.tgz"
   },
   "devDependencies": {
     "@types/bun": "^1.1.4",
