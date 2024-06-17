@@ -40,7 +40,7 @@ export default class Cache {
     try {
       const stat = await nodeStat(file)
       if (stat.isFile()) {
-        const data: Buffer = await readFile(file)
+        const data = await readFile(file)
         return data.buffer as ArrayBuffer
       }
       throw new Error('An unexpected file was found in place of the cache key')
